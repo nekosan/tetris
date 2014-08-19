@@ -99,7 +99,7 @@ Tetris::Tetris(int x, int y)
 }
 
 Tetris::~Tetris(){
-
+    delete [] field;
 }
 
 Tetris::InKey Tetris::getKey()
@@ -288,13 +288,17 @@ void Tetris::game()
                         field[j + size_x * (i + del)] = field[j + size_x * i];
                         field[j + size_x * i] = EMPTY;
                     }
-
                 }
             }
 
             b_now = b_next;
             make_block(b_now);
             b_next = rand() % 7;
+
+            if(judge(b_state, b_x, b_y)){
+                printf("Game Over!!\n");
+                break;
+            }
 
             Sleep(300);
         }
